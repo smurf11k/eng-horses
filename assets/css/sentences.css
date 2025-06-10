@@ -1,0 +1,77 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    font-size: 34px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    margin: 20px;
+}
+
+.game-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.sentences {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sentence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* vertical aligment */
+    gap: 5px;
+    /* space between items */
+    margin-bottom: 20px;
+    /* spacing between sentences */
+}
+
+.words {
+    position: fixed;
+    right: 20px;
+    top: 50px;
+    width: 25%;
+    min-height: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+}
+
+.word {
+    padding: 5px;
+    margin: 10px;
+    /* spacing */
+    border: 1px solid #000;
+    display: inline-block;
+    cursor: grab;
+    height: fit-content;
+}
+
+.blank {
+    border: 1px dashed #000;
+    min-width: 150px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+.check-button {
+    margin-top: 20px;
+    font-size: 34px;
+}

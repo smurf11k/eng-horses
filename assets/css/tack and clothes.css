@@ -1,0 +1,184 @@
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    margin: 20px;
+    margin-left: 150px;
+}
+
+.game-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.picture-container {
+    position: relative;
+    width: calc(100% - 260px);
+    margin-left: 20px;
+}
+
+.game-image {
+    width: 70%;
+    height: auto;
+    margin: 20px;
+}
+
+.drop-box {
+    position: absolute;
+    border: 1px dashed #000;
+    min-width: 70px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+#drop1
+
+/* protection boots */
+    {
+    top: 65px;
+    left: 120px;
+}
+
+#drop2
+
+/* hoof pick */
+    {
+    top: 0px;
+    left: 270px;
+}
+
+#drop3
+
+/* helmet */
+    {
+    top: 0px;
+    left: 430px;
+}
+
+#drop4
+
+/* chaps */
+    {
+    top: 40px;
+    left: 630px;
+}
+
+#drop5
+
+/* comb */
+    {
+    top: 130px;
+    left: 740px;
+}
+
+#drop6
+
+/* bit */
+    {
+    top: 280px;
+    left: 840px;
+}
+
+#drop7
+
+/* bridle */
+    {
+    top: 450px;
+    left: 860px;
+}
+
+#drop8
+
+/* brush */
+    {
+    top: 600px;
+    left: 800px;
+}
+
+#drop9
+
+/* whip */
+    {
+    top: 700px;
+    left: 670px;
+}
+
+#drop10
+
+/* saddle */
+    {
+    top: 600px;
+    left: 420px;
+}
+
+#drop11
+
+/* boots */
+    {
+    top: 700px;
+    left: 120px;
+}
+
+#drop12
+
+/* saddle pad */
+    {
+    top: 450px;
+    left: 50px;
+}
+
+#drop13
+
+/* gloves */
+    {
+    top: 320px;
+    left: 0px;
+}
+
+#drop14
+
+/* horseshoe */
+    {
+    top: 200px;
+    left: 30px;
+}
+
+.words {
+    position: fixed;
+    right: 20px;
+    top: 60px;
+    width: 180px;
+    min-height: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    text-align: center;
+}
+
+.word {
+    padding: 5px;
+    margin: 2px;
+    border: 1px solid #000;
+    display: inline-block;
+    cursor: grab;
+    font-size: 26px;
+}
+
+.check-button {
+    margin: 20px;
+    font-size: 26px;
+}
