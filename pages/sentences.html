@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../assets/css/sentences.css">
-    <link rel="stylesheet" href="../assets/css/back link.css">
+    <link rel="stylesheet" href="../assets/css/backlink.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <title>Eng exersises</title>
 </head>
 
@@ -20,139 +21,11 @@
             <!-- for words -->
         </div>
     </div>
-    <button class="check-button" onclick="checkAnswers()">Check Answers</button>
+    <div class="check-container">
+        <button class="check-button" onclick="checkAnswers()">Check Answers</button>
+    </div>
 
-    <script>
-        var words =
-            [
-                "very fast", "cute", "apples", "saddle",
-                "stables", "open fields", "brushing",
-                "cleaning", "carts", "kids", "chew",
-                "sleep", "bridle", "run", "whiskers",
-                "group", "water", "people", "bond",
-                "large eyes", "direction", "smell"
-            ];
-
-        var sentences =
-            [
-                "Horses can run ______ and love to race.",
-                "A young horse is called a foal and is very ______.",
-                "Horses eat grass, hay, and sometimes treats like ______ or carrots.",
-                "A ______ is a set of straps that fits on a horse’s head, allowing the rider to control the horse using the reins and bit.",
-                "Horses can live in barns or ______ to stay safe and warm.",
-                "Wild horses live in ______ and run in herds.",
-                "Horses need regular care, like ______ their coats and ______ their hooves.",
-                "Some horses are used to pull ______ or plows on farms.",
-                "Ponies are small horses that are great for ______ to ride.",
-                "A horse’s teeth never stop growing, which helps them ______ tough grass.",
-                "Horses can ______ both standing up and lying down.",
-                "People ride horses using a ______ and reins to guide them.",
-                "Horses can ______ shortly after they are born, usually within a few hours.",
-                "Each horse has a unique pattern of ______ on its muzzle, just like a fingerprint.",
-                "A ______ of horses is called a herd, and they like to stay together.",
-                "Horses can drink up to 10 gallons of ______ a day to stay healthy and hydrated.",
-                "Horses have excellent smell, often remembering ______ and places even after many years.",
-                "The ______ between a horse and its rider can be incredibly strong, built on trust, respect, and mutual understanding.",
-                "Horses have a special way of seeing the world: their ______ give them nearly 360-degree vision, allowing them to spot predators from almost any ______.",
-                "Horses use their sense of ______ to recognize other horses and humans, as they have a keen ability to detect different scents from far away."
-            ];
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-            }
-        }
-
-        function createSentenceHTML(sentence) {
-            return sentence.replace(/______/g, '<span class="blank" ondrop="drop(event)" ondragover="allowDrop(event)"></span>');
-        }
-
-        function loadGame() {
-            var sentencesContainer = document.getElementById('sentences');
-            var wordsContainer = document.getElementById('words');
-            var emptyMessage = document.getElementById('emptyMessage');
-
-            sentences.forEach(sentence => {
-                var sentenceDiv = document.createElement('div');
-                sentenceDiv.classList.add('sentence');
-                sentenceDiv.innerHTML = createSentenceHTML(sentence);
-                sentencesContainer.appendChild(sentenceDiv);
-            });
-
-            shuffleArray(words);
-
-            words.forEach((word, index) => {
-                var wordDiv = document.createElement('div');
-                wordDiv.classList.add('word');
-                wordDiv.setAttribute('draggable', true);
-                wordDiv.setAttribute('ondragstart', 'drag(event)');
-                wordDiv.setAttribute('id', 'word' + index); // Assign unique ID
-                wordDiv.innerText = word;
-                wordsContainer.appendChild(wordDiv);
-            });
-        }
-
-        function drag(event) {
-            event.dataTransfer.setData("text", event.target.innerText);
-            event.dataTransfer.setData("id", event.target.id);
-        }
-
-        function drop(event) {
-            event.preventDefault();
-            var data = event.dataTransfer.getData("text");
-            var wordId = event.dataTransfer.getData("id");
-            event.target.innerText = data;
-            var wordElement = document.getElementById(wordId);
-            if (wordElement) {
-                wordElement.remove();
-            }
-        }
-
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        function checkAnswers() {
-            var correctAnswers = [
-                "very fast",
-                "cute",
-                "apples",
-                "bridle",
-                "stables",
-                "open fields",
-                "brushing",
-                "cleaning",
-                "carts",
-                "kids",
-                "chew",
-                "sleep",
-                "saddle",
-                "run",
-                "whiskers",
-                "group",
-                "water",
-                "people",
-                "bond",
-                "large eyes",
-                "direction",
-                "smell"
-            ];
-
-            var blanks = document.getElementsByClassName('blank');
-            for (var i = 0; i < blanks.length; i++) {
-                if (blanks[i].innerText === correctAnswers[i]) {
-                    blanks[i].style.backgroundColor = 'lightgreen';
-                }
-                else {
-                    blanks[i].style.backgroundColor = 'lightcoral';
-                }
-            }
-        }
-
-        window.onload = loadGame;
-    </script>
-
+    <script src="../assets/js/sentences.js"></script>
 </body>
 
 </html>
