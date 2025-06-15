@@ -1,184 +1,149 @@
-body {
+:root {
+    --primary-button-color: #2e7d32;
+    --primary-button-hover: #1b5e20;
+    --quiz-correct-color: #4CAF50;
+    --quiz-incorrect-color: #D32F2F;
+}
+
+.svg-tooltip {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+}
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 10px;
+    width: 20%;
+    height: 75%;
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 50px 15px 15px 15px;
+    margin: 3rem;
+    z-index: 900;
+    overflow-y: auto;
+}
+
+.sidebar-content h3 {
     margin: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+    color: #333;
 }
 
-h1 {
-    margin: 20px;
-    margin-left: 150px;
+.sidebar-content p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
 }
 
-.game-content {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+.sidebar-entry {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sidebar-entry p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.sidebar-entry.active {
+    background: #e8f5e9;
+    /* Light green for active state, tack theme */
+    border-color: var(--primary-button-color);
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-button-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 910;
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary-button-hover);
 }
 
 .picture-container {
     position: relative;
-    width: calc(100% - 260px);
-    margin-left: 20px;
+    width: 50%;
+    margin-left: 150px;
+    margin-top: 50px;
 }
 
-.game-image {
-    width: 70%;
+.picture-container svg {
+    width: 120%;
     height: auto;
-    margin: 20px;
+    display: block;
+    max-width: 150%;
 }
 
-.drop-box {
+.mode-toggle {
     position: absolute;
-    border: 1px dashed #000;
-    min-width: 70px;
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-    margin: 5px;
-    box-sizing: border-box;
+    top: 10px;
+    left: 10px;
+    background: var(--primary-button-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 910;
 }
 
-#drop1
-
-/* protection boots */
-    {
-    top: 65px;
-    left: 120px;
+.mode-toggle:hover {
+    background: var(--primary-button-hover);
 }
 
-#drop2
-
-/* hoof pick */
-    {
-    top: 0px;
-    left: 270px;
+.quiz-upper {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
 }
 
-#drop3
-
-/* helmet */
-    {
-    top: 0px;
-    left: 430px;
-}
-
-#drop4
-
-/* chaps */
-    {
-    top: 40px;
-    left: 630px;
-}
-
-#drop5
-
-/* comb */
-    {
-    top: 130px;
-    left: 740px;
-}
-
-#drop6
-
-/* bit */
-    {
-    top: 280px;
-    left: 840px;
-}
-
-#drop7
-
-/* bridle */
-    {
-    top: 450px;
-    left: 860px;
-}
-
-#drop8
-
-/* brush */
-    {
-    top: 600px;
-    left: 800px;
-}
-
-#drop9
-
-/* whip */
-    {
-    top: 700px;
-    left: 670px;
-}
-
-#drop10
-
-/* saddle */
-    {
-    top: 600px;
-    left: 420px;
-}
-
-#drop11
-
-/* boots */
-    {
-    top: 700px;
-    left: 120px;
-}
-
-#drop12
-
-/* saddle pad */
-    {
-    top: 450px;
-    left: 50px;
-}
-
-#drop13
-
-/* gloves */
-    {
-    top: 320px;
-    left: 0px;
-}
-
-#drop14
-
-/* horseshoe */
-    {
-    top: 200px;
-    left: 30px;
-}
-
-.words {
-    position: fixed;
-    right: 20px;
-    top: 60px;
-    width: 180px;
-    min-height: 300px;
-    max-height: 80vh;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    text-align: center;
-}
-
-.word {
-    padding: 5px;
-    margin: 2px;
-    border: 1px solid #000;
+.quiz-word {
     display: inline-block;
-    cursor: grab;
-    font-size: 26px;
+    margin: 5px;
+    padding: 5px 10px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.check-button {
-    margin: 20px;
-    font-size: 26px;
+.quiz-word.active-word {
+    background: var(--primary-button-color);
+    color: #fff;
+}
+
+.quiz-lower {
+    padding-top: 10px;
+}
+
+body.quiz-mode .correct {
+    fill: var(--quiz-correct-color) !important;
+    fill-opacity: 0.3 !important;
+}
+
+body.quiz-mode .incorrect {
+    fill: var(--quiz-incorrect-color) !important;
+    fill-opacity: 0.3 !important;
 }

@@ -17,7 +17,7 @@ function preload() {
             () => console.log('Horseshoe image loaded'),
             () => console.error('Failed to load horseshoe image')
         );
-        clankSound = loadSound('assets/audio/sword-slash-with-metal-shield-impact.mp3',
+        clankSound = loadSound('assets/audio/clank.mp3',
             () => console.log('Clank sound loaded'),
             () => console.error('Failed to load clank sound')
         );

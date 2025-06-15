@@ -1,6 +1,3 @@
-// TODO: fix color mode toggle colors glitching when switching modes
-// and add a json for body parts data - which would allow to delete the title and desc elements from the SVG
-
 document.addEventListener('DOMContentLoaded', () => {
     // Create tooltip element
     const tooltip = document.createElement('div');
@@ -58,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fill: path.style.fill || getComputedStyle(path).fill
         }));
         groupStyles.set(group, originalStyles);
+        paths.forEach(path => path.classList.add('color-toggle')); // Ensure all paths have color-toggle class
     });
 
     // Shuffle array
@@ -77,16 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
             path.style.stroke = '#22664C';
             path.style.strokeWidth = '0.5';
             if (isQuizMode && groupData.find(g => g.id === group.id)?.matched) {
-                // Managed by CSS classes (correct/incorrect)
                 path.style.fillOpacity = '0.3';
             } else if (isQuizMode) {
-                // Unmatched groups in quiz mode use original fill for highlighting
                 const styles = groupStyles.get(group);
                 const pathIndex = Array.from(group.querySelectorAll('path')).indexOf(path);
                 path.style.fill = styles[pathIndex].fill;
                 path.style.fillOpacity = '0.5';
             } else {
-                // Non-quiz mode respects color mode
                 path.style.fill = isColorModeOn ? (path.style.fill || getComputedStyle(path).fill) : 'slategray';
                 path.style.fillOpacity = isColorModeOn ? '0.5' : '0.05';
             }
@@ -102,10 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
             p.style.stroke = styles[i].stroke;
             p.style.strokeWidth = styles[i].strokeWidth;
             if (isQuizMode && groupData.find(g => g.id === group.id)?.matched) {
-                // Managed by CSS classes (correct/incorrect)
                 p.style.fillOpacity = '0.3';
             } else {
-                // Non-quiz mode or unmatched groups respect color mode
                 p.style.fill = isColorModeOn ? styles[i].fill : 'slategray';
                 p.style.fillOpacity = isColorModeOn ? styles[i].fillOpacity : '0.05';
             }
@@ -116,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateAllGroupStyles = () => {
         groups.forEach(group => {
             const isMatched = groupData.find(g => g.id === group.id)?.matched;
+            const paths = group.querySelectorAll('path');
+            paths.forEach(path => {
+                path.classList.remove('correct', 'incorrect'); // Clear quiz classes unless matched
+            });
             if (group === clickedGroup || (isQuizMode && isMatched)) {
                 highlightGroup(group);
             } else {
@@ -340,6 +337,27 @@ document.addEventListener('DOMContentLoaded', () => {
         updateAllGroupStyles();
     });
 
+    // Toggle color mode
+    function toggleColorMode() {
+        document.body.classList.toggle('color-mode-on');
+        if (clickedGroup) {
+            resetGroupStyle(clickedGroup); // Clear current clicked group styles
+        }
+        clickedGroup = null; // Reset clicked group to avoid stale state
+        groups.forEach(group => {
+            resetGroupStyle(group); // Reset all groups to base styles
+        });
+        if (!isQuizMode) {
+            const defaultGroup = document.querySelector('#drop-ribcage');
+            if (defaultGroup) {
+                clickedGroup = defaultGroup;
+                highlightGroup(clickedGroup);
+            }
+            renderSingleMode(); // Re-render sidebar to reflect default state
+        }
+        updateAllGroupStyles(); // Ensure all groups reflect new color mode
+    }
+
     groups.forEach((group, index) => {
         const paths = group.querySelectorAll('path');
         const titleEl = group.querySelector('title');
@@ -373,25 +391,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderSingleMode();
                 }
             }
+            updateAllGroupStyles(); // Ensure all groups are updated after click
             e.stopPropagation();
         });
 
         // Mouseover event
         group.addEventListener('mouseover', (e) => {
             if (titleEl) {
-                // Store and clear title to disable Chrome's default tooltip
                 titleEl.dataset.originalTitle = titleEl.textContent || groupData.find(g => g.id === group.id).originalTitle;
                 titleEl.textContent = '';
             }
             if (!isQuizMode) {
-                // Show custom tooltip only in non-quiz mode
                 const groupInfo = groupData.find(g => g.id === group.id);
                 tooltip.textContent = groupInfo.originalTitle;
                 tooltip.style.display = 'block';
                 tooltip.style.left = `${e.pageX + 10}px`;
                 tooltip.style.top = `${e.pageY + 10}px`;
             }
-            // Highlight group if not clicked and not matched in quiz mode
             if (group !== clickedGroup && (!isQuizMode || !groupData.find(g => g.id === group.id).matched)) {
                 highlightGroup(group);
             }
@@ -400,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mousemove event
         group.addEventListener('mousemove', (e) => {
             if (!isQuizMode) {
-                // Update tooltip position only in non-quiz mode
                 tooltip.style.left = `${e.pageX + 10}px`;
                 tooltip.style.top = `${e.pageY + 10}px`;
             }
@@ -409,7 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mouseout event
         group.addEventListener('mouseout', () => {
             if (titleEl) {
-                // Restore title for accessibility
                 titleEl.textContent = groupData.find(g => g.id === group.id).originalTitle;
             }
             if (!isQuizMode) {
@@ -443,11 +457,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 sidebarContent.innerHTML = '<p>Click on a body part to see what it means</p>';
             }
+            updateAllGroupStyles();
         }
     });
-});
 
-function toggleColorMode() {
-    document.body.classList.toggle('color-mode-on');
-    updateAllGroupStyles();
-}
+    // Expose toggleColorMode globally for HTML button
+    window.toggleColorMode = toggleColorMode;
+});
