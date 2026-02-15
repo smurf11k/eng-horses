@@ -21,12 +21,4 @@ This interactive website was created as part of an English tutoring project for 
 
 ## Purpose
 
-This site aims to help students expand their English vocabulary through hands-on quizzes themed around horses — a topic they care about. By connecting language learning with familiar content, it improves both engagement and retention.
-
-## License
-All rights reserved.
-
-This project, including its code, content, and design, is not licensed for reuse, redistribution, or derivative works.
-
-The source is publicly accessible for viewing and evaluation purposes only.
-Any commercial use, self-hosting, or transfer of ownership requires explicit permission from the author.
+This site aims to help students expand their English vocabulary through hands-on quizzes themed around horses — a topic they care about. Connecting language learning to familiar content improves both engagement and retention.
